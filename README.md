@@ -22,3 +22,8 @@ The environment is cart-pole-v1 env. from OpenAI Gym. A deterministic environmen
 Here I have implemented the actor-critic method with deep neural networks (DNN).
 
 Here, the DNN is designed such that policy and the value-function networks share some of the layers. This would allow faster training of the agents, presumably because the first layers of the DNNs extract features and map them to a more condensed representation space (a concept similar to transfer-learning). 
+
+
+## results
+
+## tips and tricks to stabilize it 
