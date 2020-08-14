@@ -22,6 +22,6 @@ def averager(input_array, stride_len):
     return averaged
 
 
-input_array = np.loadtxt('steps_vs_iteration.dat')
+input_array = np.loadtxt('steps_vs_iteration_zero_epsilon.dat')
 
-np.savetxt('averaged_steps_vs_iteration.dat', averager(input_array=input_array, stride_len=60))
+np.savetxt('averaged_steps_vs_iteration_zero_epsilon.dat', averager(input_array=input_array, stride_len=60))
