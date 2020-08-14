@@ -66,4 +66,8 @@ The aforementioned oscillations can be reduced significantly by introducing a sm
 
 <img src="https://latex.codecogs.com/gif.latex?\mathrm{output\_policy}=\frac{\mathrm{output\_policy}+\epsilon}{1+\epsilon~~\mathrm{nr\_actions}}" /> 
 
-where *output_policy* is the output of the DNN for the policy with has *nr_actions* elements (see the schematics of the DNN).
+where *output_policy* is the output of the DNN for the policy with has *nr_actions* elements (see the schematics of the DNN). This additional operation (with no learnable parameter) changes the design of the DNN as depicted below.
+
+
+<img src="./statics/with-epsilon-layer.png" width="30%">
+
