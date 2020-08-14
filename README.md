@@ -71,3 +71,4 @@ where *output_policy* is the output of the DNN for the policy with has *nr_actio
 
 <img src="./statics/with-epsilon-layer.png" width="30%">
 
+Of course, now one should choose a value for the epsilon in a proper range: on one hand, we observed that if the epsilon is too small, it does not have the desired stabilizing effect, and on the other hand, if it is too large, the overall performance of the agent is hindered. The value of epsilon is 0.001 for the results shown above.
