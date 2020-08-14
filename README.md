@@ -41,6 +41,12 @@ All the states, actions, and the rewards are saved from the beginning of the epi
 
 * **learning** : After sampling based on the policy, the obtained data is used to train the DNN. In the case our DNN, defining the loss function is not straightforward. The reason behind this complication is the fact that this DNN has two types of outputs (classification for the action and regression for the value function) which are both affected by the weight and biases of the *same* shared layers. To train the weights/biases of these shared layers one should combine the binary cross entropy loss for the actions, and the mean squared error for the value function. One way to combine these different losses would be to consider a (weighted) average of them. Using this loss and the data gathered from the experience, we used the actor-critic algorithm to solve make a policy iteration step. Using this new policy, we go back to the **experience loops**.
 
+## requirements
+TODO
+
+## running the codes
+
+TODO
 
 ## results
 
