@@ -22,7 +22,7 @@ The environment is cart-pole-v1 env. from OpenAI Gym. A deterministic environmen
 Here, the actor-critic method with deep neural networks (DNN) is used to stabilize the inverted pendulum.
 
 Here, the DNN is designed such that policy and the value-function networks share some of the layers. This would allow faster training of the agents, presumably because the first layers of the DNNs extract features and map them to a more condensed representation space (a concept similar to transfer-learning). 
-The weights can be chose
+
 <img src="./statics/without-epsilon-layer.png" width="30%">
 
 The main program is organized in the following way:
@@ -48,5 +48,9 @@ Let's first start with a visual demonstartion of an episode of a trained agent, 
 
 <img src="./performance-and-animations/animations/trained/animation.gif" width="60%">
 
+
+One can quantify the *performance* of the agent simply as the duration of the time interval over which it hold the pole before failing. In the following figure, we showed the performance for each episode and also the averaged performance for each policy iteration step. In this case, the data from 60 episodes are used for each policy iteration step.
+
+<img src="./performance-and-animations/results.png" width="60%">
 
 ## tips and tricks to stabilize it 
