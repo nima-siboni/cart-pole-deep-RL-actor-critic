@@ -53,4 +53,10 @@ One can quantify the *performance* of the agent simply as the duration of the ti
 
 <img src="./performance-and-animations/results.png" width="60%">
 
+The maximum performance is limited to 200 steps as this is set by the cart-pole environment of OpenAI Gym as a limit.
+
+## discussions
+
+Using actor-critic method, the agent can directly learn from them experience. As one can see in the above figure, after only ~10 policy iteration the agent figures out the right policy. One can stop the training at this point. Nevertheless, if one chooses to continue training, surprisingly the agent start showing an unstable behavior, i.e. the performance oscillates. This is a known fact and in the following a few steps towards reduction of these oscillations are discussed. 
+
 ## tips and tricks to stabilize it 
