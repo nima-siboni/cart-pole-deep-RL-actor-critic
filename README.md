@@ -1,5 +1,4 @@
 # cart-pole-deep-RL-actor-critic
-Solving the inverted pendulum problem with deep-RL actor-critic (with shared network between the value-evaluation and the policy, epsilon-greedy policy). Some implementation issues concerning the stability are discussed. 
 
 ## the problem
 
