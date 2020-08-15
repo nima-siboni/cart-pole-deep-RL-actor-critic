@@ -33,6 +33,7 @@ The main program is organized in the following way:
   **(2)** given the *state*, an action (*a*) is chosen using the policy,
 
   **(3)** the action *a* is given to the environment, and the environment returns the new state, the reward, and a signal indicating the end of the episode.
+  
   
   **(4)** if the process is not ended, the new state is assigned to the variable *state* and the execution continues to step **(2)** . 
 
