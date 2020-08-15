@@ -32,9 +32,9 @@ The main program is organized in the following way:
 
   **(2)** given the *state*, an action (*a*) is chosen using the policy,
 
-  **(3)**- the action *a* is given to the environment, and the environment returns the new state, the reward, and a signal indicating the end of the episode.
+  **(3)** the action *a* is given to the environment, and the environment returns the new state, the reward, and a signal indicating the end of the episode.
   
-  **(4)**- if the process is not ended, the new state is assigned to the variable *state* and the execution continues to step **(2)** . 
+  **(4)** if the process is not ended, the new state is assigned to the variable *state* and the execution continues to step **(2)** . 
 
 All the states, actions, and the rewards are saved from the beginning of the episode until the end of it. This process is repeated for a number of episodes and all the data are gathered in an instance of the class *History*.
 
