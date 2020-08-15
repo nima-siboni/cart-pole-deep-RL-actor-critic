@@ -3,7 +3,7 @@ Solving the inverted pendulum problem with deep-RL actor-critic (with shared net
 
 ## the problem
 
-The problem is to train an agent which stablizes a pole on a cart (an inverted pendulum problem). This is a classic problem in dynamics and control theory and is used as a benchmark for testing control strategies [[1]](https://en.wikipedia.org/wiki/Inverted_pendulum#:~:text=An%20inverted%20pendulum%20is%20a,additional%20help%20will%20fall%20over).
+The problem is to train an agent which stabilizes a pole on a cart (an inverted pendulum problem). This is a classic problem in dynamics and control theory and is used as a benchmark for testing control strategies [[1]](https://en.wikipedia.org/wiki/Inverted_pendulum#:~:text=An%20inverted%20pendulum%20is%20a,additional%20help%20will%20fall%20over).
 
 In the current presentation of the problem, the agent:
 - observes the *current* position and velocity of the cart and the pole, 
@@ -11,7 +11,7 @@ In the current presentation of the problem, the agent:
 
 
  
-The environment is cart-pole-v1 env. from OpenAI Gym. A deterministic environment whicg rewards the agent by +1 every time step that it does not fail. The failing is defined as The agent fails when the angle between the pole and the vertical line exceeds a certain threshold. Here is an example of failure when the controller just moves the cart irrespective of the state of the pole.
+The environment is cart-pole-v1 env. from OpenAI Gym. A deterministic environment which rewards the agent by +1 every time step that it does not fail. The failing is defined as The agent fails when the angle between the pole and the vertical line exceeds a certain threshold. Here is an example of failure when the controller just moves the cart irrespective of the state of the pole.
 
 
 <img src="./performance-and-animations/animations/not-trained/animation.gif" width="60%">
@@ -29,17 +29,17 @@ The main program is organized in the following way:
 * **initialization**: random weights/biases are assigned to the network, 
 * **experience loops**: 
 
-  **(1)** a random initial state is assigned to the *state* variable,
+  **(1)** a random initial state is assigned to the *state* variable,
 
-  **(2)** given the *state*, an action (*a*) is chosen using the policy,
+  **(2)** given the *state*, an action (*a*) is chosen using the policy,
 
-  **(3)**- the action *a* is given to the environment, and the environment returns the new state, the reward, and a signal indicating the end of the episode.
-  
-  **(4)**- if the process is not ended, the new state is assigned to the variable *state* and the execution continues to step **(2)** . 
+  **(3)**- the action *a* is given to the environment, and the environment returns the new state, the reward, and a signal indicating the end of the episode.
+  
+  **(4)**- if the process is not ended, the new state is assigned to the variable *state* and the execution continues to step **(2)** . 
 
 All the states, actions, and the rewards are saved from the beginning of the episode until the end of it. This process is repeated for a number of episodes and all the data are gathered in an instance of the class *History*.
 
-* **learning** : After sampling based on the policy, the obtained data is used to train the DNN. In the case our DNN, defining the loss function is not straightforward. The reason behind this complication is the fact that this DNN has two types of outputs (classification for the action and regression for the value function) which are both affected by the weight and biases of the *same* shared layers. To train the weights/biases of these shared layers one should combine the binary cross entropy loss for the actions, and the mean squared error for the value function. One way to combine these different losses would be to consider a (weighted) average of them. Using this loss and the data gathered from the experience, we used the actor-critic algorithm to solve make a policy iteration step. Using this new policy, we go back to the **experience loops**.
+* **learning** : After sampling based on the policy, the obtained data is used to train the DNN. In the case of our DNN, defining the loss function is not straightforward. The reason behind this complication is the fact that this DNN has two types of outputs (classification for the action and regression for the value function) which are both affected by the weight and biases of the *same* shared layers. To train the weights/biases of these shared layers one should combine the binary cross entropy loss for the actions, and the mean squared error for the value function. One way to combine these different losses would be to consider a (weighted) average of them. Using this loss and the data gathered from the experience, we used the actor-critic algorithm to take a policy iteration step. Using this new policy, we go back to the **experience loops**.
 
 ## requirements
 TODO
@@ -50,12 +50,12 @@ TODO
 
 ## results
 
-Let's first start with a visual demonstartion of an episode of a trained agent, as shown here. One can qualitatively see the improvement of the agent in stabilizing the pole.
+Let's first start with a visual demonstration of an episode of a trained agent, as shown here. One can qualitatively see the improvement of the agent in stabilizing the pole.
 
 <img src="./performance-and-animations/animations/trained/animation.gif" width="60%">
 
 
-One can quantify the *performance* of the agent simply as the duration of the time interval over which it hold the pole before failing. In the following figure, we showed the performance for each episode and also the averaged performance for each policy iteration step. In this case, the data from 60 episodes are used for each policy iteration step.
+One can quantify the *performance* of the agent simply as the duration of the time interval over which it holds the pole before failing. In the following figure, we showed the performance for each episode and also the averaged performance for each policy iteration step. In this case, the data from 60 episodes are used for each policy iteration step.
 
 <img src="./performance-and-animations/results.png" width="60%">
 
@@ -63,7 +63,7 @@ The maximum performance is limited to 200 steps as this is set by the cart-pole 
 
 ## discussions
 
-Using actor-critic method, the agent can directly learn from them experience. As one can see in the above figure, after only ~10 policy iteration the agent figures out the right policy. One can stop the training at this point. Nevertheless, if one chooses to continue training, surprisingly the agent start showing an unstable behavior, i.e. the performance oscillates. This is a known fact and in the following a few steps towards reduction of these oscillations are discussed. 
+Using the actor-critic method, the agent can directly learn from their experience. As one can see in the above figure, after only ~10 policy iteration the agent figures out the right policy. One can stop the training at this point. Nevertheless, if one chooses to continue training, surprisingly the agent starts showing an unstable behavior, i.e. the performance oscillates. This is a known fact and in the following a few steps towards reduction of these oscillations are discussed. 
 
 ## tips and tricks to stabilize it 
 
@@ -72,14 +72,18 @@ The aforementioned oscillations can be reduced significantly by introducing a sm
 
 <img src="https://latex.codecogs.com/gif.latex?\mathrm{output\_policy}=\frac{\mathrm{output\_policy}+\epsilon}{1+\epsilon~~\mathrm{nr\_actions}}" /> 
 
-where *output_policy* is the output of the DNN for the policy with has *nr_actions* elements (see the schematics of the DNN). This additional operation (with no learnable parameter) changes the design of the DNN as depicted below.
+where *output_policy* is the output of the DNN for the policy which has *nr_actions* elements (see the schematics of the DNN). This additional operation (with no learnable parameter) changes the design of the DNN as depicted below.
 
 
 <img src="./statics/with-epsilon-layer.png" width="30%">
 
-Of course, now one should choose a value for the epsilon in a proper range: on one hand, we observed that if the epsilon is too small, it does not have the desired stabilizing effect, and on the other hand, if it is too large, the overall performance of the agent is hindered. The value of epsilon is 0.001 for the results shown above. To observe the qualitative effect of introducing the epsilon, here the same performance curve is plotted for epsilon=0. One can see that presence of the epsilon increases the overall performance of the agent and its learning process.
+Of course, now one should choose a value for the epsilon in a proper range: on one hand, we observed that if the epsilon is too small, it does not have the desired stabilizing effect, and on the other hand, if it is too large, the overall performance of the agent is hindered. The value of epsilon is 0.001 for the results shown above. To observe the qualitative effect of introducing the epsilon, here the same performance curve is plotted for epsilon=0. One can see that the presence of the epsilon increases the overall performance of the agent and its learning process.
 
 
 <img src="./performance-and-animations/results_zero_epsilon.png" width="60%">
 
 Detailed quantitative and analytical studies of the effect of epsilon is required.
+
+## Future steps
+
+* The sampling from each policy is a task which can be parallelized conveniently, as the episodes are independent of each other.
