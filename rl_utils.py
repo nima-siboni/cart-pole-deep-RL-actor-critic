@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from utilfunctions import scale_state
 
 def calculate_the_A_hat(agent, histories, env):
@@ -52,7 +53,11 @@ def monitoring_performance(log, training_id, steps, write_to_disk=True):
         log = np.append(log, np.array([[training_id, steps]]), axis=0)
 
     if write_to_disk:
-        np.savetxt('steps_vs_iteration.dat', log)
+        perfdir = './performance-and-animations/'
+        if not os.path.exists(perfdir):
+            os.makedirs(perfdir)
+
+        np.savetxt(perfdir+'steps_vs_iteration.dat', log)
 
     return log
 

@@ -1,5 +1,6 @@
 keras
 numpy
+os
 random
 seaborn
 tensorflow
