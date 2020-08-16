@@ -32,9 +32,6 @@ histories = Histories()
 
 agent.model.save('./training-results/model-not-trained-agent')
 
-
-
-
 for training_id in range(rounds_of_training):
 
     print("\nround: "+str(training_id))
@@ -52,10 +49,8 @@ for training_id in range(rounds_of_training):
 
         new_state, reward, terminated, info = env.step(action_id)
 
-        reward = reward / 1.0
-        
         new_state = single_shape_adaptor(new_state, nr_features)
-        
+
         histories.appending(reward, state, one_hot_action, terminated, env)
 
         state, steps = update_state_step(new_state, steps)
@@ -72,7 +67,5 @@ for training_id in range(rounds_of_training):
         agent.model.save('./training-results/model-trained-agent', save_format='tf')
 
     training_log = monitoring_performance(training_log, training_id, steps, write_to_disk=True)
-
-    
 
     print("round: "+str(training_id)+" is finished.")
