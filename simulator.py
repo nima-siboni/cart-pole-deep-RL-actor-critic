@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import random
 import gym as gym
 from agent import Agent
@@ -27,7 +28,11 @@ training_log = np.array([])
 histories = Histories()
 
 agent.model = load_model('./training-results/model-trained-agent')
-figdir = './animations/trained/'
+
+figdir = './performance-and-animations/animations/trained/'
+
+if not os.path.exists(figdir):
+    os.makedirs(figdir)
 
 initial_state = env.reset()
 
