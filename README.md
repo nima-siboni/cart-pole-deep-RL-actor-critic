@@ -88,7 +88,15 @@ The maximum performance is limited to 200 steps as this is set by the cart-pole 
 
 Using the actor-critic method, the agent can directly learn from their experience. As one can see in the above figure, after only ~10 policy iteration the agent figures out the right policy. One can stop the training at this point. Nevertheless, if one chooses to continue training, surprisingly the agent starts showing an unstable behavior, i.e. the performance oscillates. This is a known fact and in the following a few steps towards reduction of these oscillations are discussed. 
 
-## tips and tricks to stabilize it 
+## experimenting with wind!
+
+We also test the agent in presence of random perturbations. Here, we add "wind" which is blowing randomly and leads to a change the angle of the pole. An instance of such an experiment is presented here. One can observe that although the agent is trained in absence of the wind, it still performs reasonably well for in presence of the wind.
+
+<img src="./performance-and-animations/animations/trained-windy/animation.gif" width="60%">
+
+The windy experiments can be performed using ```simulator-windy.py```. The strength of the wind and its period can be changed by ```wind_power``` and ```wind_period``` variables in the script.
+
+## tips and tricks
 
 The aforementioned oscillations can be reduced significantly by introducing a small degree of exploration to the problem. One way to do so is using Boltzmann exploration (see [here](https://arxiv.org/abs/1705.10257) for details). A simpler approach which we considered here is similar to epsilon-greedy method:
 
