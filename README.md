@@ -44,9 +44,10 @@ All the states, actions, and the rewards are saved from the beginning of the epi
 ## requirements
 Besides the python3 and pip3
 
-* gyn 
+* gym 
 * keras
 * numpy
+* os
 * Pillow
 * random
 * tensorflow (version 2)
